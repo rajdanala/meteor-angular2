@@ -1,5 +1,7 @@
 /// <reference path="../typings/angular2-meteor.d.ts" />
 import {Component,NgFor, View, bootstrap} from 'angular2/angular2';
+import {bootstrap} from 'angular2-meteor';
+import {Pages} from 'collections/pages';
 
 @Component({
 	selector: 'app'
@@ -9,18 +11,11 @@ import {Component,NgFor, View, bootstrap} from 'angular2/angular2';
 	directives: [NgFor]
 })
 class MeteorAngular2 {
-	menus: Array<Object>;
+	pages: Array<Object>;
 	constructor () {
-		this.menus = [
-			{
-			'name':'Home',
-			'page':'Welcome Home'
-			},
-			{
-			'name':'Contact Us',
-			'page':'Address'
-			}
-		];
+		Tracker.autorun(zone.bind(() => {
+			this.pages = Pages.find().fetch();
+		}));
 	}
 }
 
