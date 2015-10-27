@@ -1,2 +1,8 @@
-<p> Noasthing here {{'yet' + '!'}}</p>
-<p> Add  {{ 2 + 1 }} </p>
+<div>
+<ul>
+  <li *ng-for="#menu of menus">
+    {{menu.name}}
+    <p> {{menu.page}}</p>
+  </li>
+</ul>
+</div>
