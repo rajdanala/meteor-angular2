@@ -1,0 +1,9 @@
+<form [ng-form-model]="pagesForm" #f="form" (submit)="addPage(f.value)">
+  <label>Name</label>
+  <input type="text" ng-control="name">
+  <label>Content</label>
+  <input type="text" ng-control="content">
+  <label>Author</label>
+  <input type="text" ng-control="author">
+  <button>Add</button>
+</form>

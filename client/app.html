@@ -1,8 +1,10 @@
 <div>
+  <pages-form></pages-form>
 <ul>
   <li *ng-for="#page of pages">
     {{page.name}}
     <p> {{page.content}}</p>
+    <button (click)="removePage(page)"> X </button>
   </li>
 </ul>
 </div>

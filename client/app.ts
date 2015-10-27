@@ -1,21 +1,27 @@
 /// <reference path="../typings/angular2-meteor.d.ts" />
-import {Component,NgFor, View, bootstrap} from 'angular2/angular2';
+import {Component,NgFor, View} from 'angular2/angular2';
 import {bootstrap} from 'angular2-meteor';
 import {Pages} from 'collections/pages';
+import {PagesForm} from 'client/admin/pages-form';
 
 @Component({
 	selector: 'app'
 })
 @View({
 	templateUrl: 'client/app.html',
-	directives: [NgFor]
+	directives: [NgFor,PagesForm]
 })
-class MeteorAngular2 {
-	pages: Array<Object>;
+export class MeteorAngular2 {
+	pages: Mongo.Cursor<Object>;
+
 	constructor () {
-		Tracker.autorun(zone.bind(() => {
-			this.pages = Pages.find().fetch();
-		}));
+
+			this.pages = Pages.find();
+
+	}
+	removePage(page){
+		console.log(page._id);
+		  Pages.remove(page._id);
 	}
 }
 
