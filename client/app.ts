@@ -1,28 +1,25 @@
 /// <reference path="../typings/angular2-meteor.d.ts" />
-import {Component,NgFor, View} from 'angular2/angular2';
+import {Component,NgFor, View, provide} from 'angular2/angular2';
+
 import {bootstrap} from 'angular2-meteor';
-import {Pages} from 'collections/pages';
-import {PagesForm} from 'client/admin/pages-form';
+
+import {ROUTER_PROVIDERS, ROUTER_DIRECTIVES, RouteConfig, APP_BASE_HREF} from 'angular2/router';
+
+import {Nav} from 'client/public/nav';
+import {PageDetails} from 'client/public/page-details'
 
 @Component({
 	selector: 'app'
 })
 @View({
-	templateUrl: 'client/app.html',
-	directives: [NgFor,PagesForm]
+	template: '<router-outlet></router-outlet>',
+	directives: [ROUTER_DIRECTIVES]
 })
-export class MeteorAngular2 {
-	pages: Mongo.Cursor<Object>;
+@RouteConfig([
+	{path: '/', as: 'Nav',component: Nav},
+	{path: '/page/:pageId', as:'PageDetails', component: PageDetails}
+])
 
-	constructor () {
+class MeteorAngular2 {}
 
-			this.pages = Pages.find();
-
-	}
-	removePage(page){
-		console.log(page._id);
-		  Pages.remove(page._id);
-	}
-}
-
-bootstrap(MeteorAngular2);
+bootstrap(MeteorAngular2, [ROUTER_PROVIDERS,provide(APP_BASE_HREF,{useValue:'/'})]);

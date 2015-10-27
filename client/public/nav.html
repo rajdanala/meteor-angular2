@@ -1,0 +1,10 @@
+<div>
+  <pages-form></pages-form>
+<ul>
+  <li *ng-for="#page of pages">
+    <a [router-link]="['/PageDetails',{pageId: page._id}]">{{page.name}} </a>
+    <p> {{page.content}}</p>
+    <button (click)="removePage(page)"> X </button>
+  </li>
+</ul>
+</div>
