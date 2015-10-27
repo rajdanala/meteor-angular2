@@ -1,5 +1,5 @@
 /// <reference path="../../typings/angular2-meteor.d.ts" />
-import {Component, View} from 'angular2/angular2';
+import {Component, View, Inject} from 'angular2/angular2';
 
 import {RouteParams} from 'angular2/router';
 import {RouterLink} from 'angular2/router';
@@ -17,8 +17,14 @@ import {Pages} from 'collections/pages'
 export class PageDetails {
   page: Object;
 
-  constructor(params: RouteParams) {
-    var pageId = params.get('pageId');
-    this.page = Pages.findOne(pageId);
+  constructor(@Inject(RouteParams) routeParams: RouteParams) {
+    this.pageId = routeParams.params.pageId;
   }
+  onActivate() {
+    this.page = Pages.find(this.pageId).fetch()[0];
+    if(this.page) {
+      return true;
+    }
+  }
+
 }

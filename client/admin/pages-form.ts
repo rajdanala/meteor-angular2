@@ -33,6 +33,9 @@ export class PagesForm {
       (this.pagesForm.controls['content']).updateValue('');
       (this.pagesForm.controls['location']).updateValue('');
     }
+    else{
+      console.log('Enter the required fields');
+    }
   }
 
 }
